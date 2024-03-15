@@ -1,0 +1,40 @@
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="#">Movie List</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" disabled tabindex="-1" aria-disabled="true">Add Video</a>
+  </li>
+</ul>
+
+<form #uploadForm="ngForm">
+  <h3>Upload a Video</h3>
+
+  <div class="mb-3">
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload *ngIf="model.filename.length === 0">
+    <h2>{{model.filename}}</h2>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Title</label>
+    <input type="email" class="form-control" name="title" [(ngModel)]="model.title" placeholder="Title">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+    <input type="email" class="form-control" name="description" [(ngModel)]="model.description" required maxlength="160" placeholder="Description">
+  </div>
+  <div class="mb-3 row justify-content-end">
+    <button class="col btn btn-outline-secondary m-1" styl (click)="onReset()">Reset</button>
+    <button class="col btn  btn-outline-primary m-1" (click)="onUploadFile()" [disabled]="uploading">Upload</button>
+  </div>
+  <div class="file-upload">
+      <div class="alert alert-warning alert-dismissible fade show m-3" role="alert" *ngIf="hasError">
+        <strong>No Fish!</strong> {{errorMessage}}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="hasError=false"></button>
+      </div>
+  </div>
+</form>
+<ngx-spinner type="ball-spin">
+  <p style="font-size: 20px; color: white">Uploading Video...</p>
+</ngx-spinner>
+
+
